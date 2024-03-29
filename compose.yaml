@@ -1,0 +1,21 @@
+version: '3.5'
+
+networks:
+  demo-network: {}
+
+services:
+  
+  eureka:
+    image: quay.io/ibm_java_academy/eureka-service-springboot
+    container_name: eureka
+  
+  service:
+    image: quay.io/ibm_java_academy/sample-service-springboot
+    container_name: service
+  
+  gateway:
+    image: quay.io/ibm_java_academy/sample-gateway-springboot
+    container_name: gateway
+  
+
+
