@@ -1,0 +1,12 @@
+FROM maven:3.8.4-openjdk-11-slim AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM openjdk:8-jdk-slim
+ENV APP_HOME /demo
+RUN mkdir $APP_HOME
+COPY --from=build /app/target/*.jar $APP_HOME/app.jar
+WORKDIR $APP_HOME
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","app.jar"]a
